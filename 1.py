@@ -26,21 +26,31 @@ for line in input_data:
     match2 = re.search("\d{5}$", line).group()
     list2.append(int(match2))
 
+# Sort lists
 list1 = sorted(list1)
 list2 = sorted(list2)
 
 finalList = []
 x = 0
 while x != len(list1):
+    # Subtract number in list2 by number in list1
     distance = list1[x] - list2[x]
+
+    # Convert to positive number if negative
     if distance < 0:
         distance = distance * -1
+
+    # Append to finalList
     finalList.append(distance)
+
+    # Increment counter
     x += 1
 
+# Show all distances for spot checking
 print("Distances:")
 print(finalList)
 
+# Show sum of finalList
 print("Sum of list:")
 print(sum(finalList))
 
@@ -66,12 +76,17 @@ counts = Counter(list2)
 
 # Loop
 for x in list1:
+    # Get how many times x appears in list2
     instanceCount = counts[x]
     print(f"{x} appears {instanceCount} in list")
-    # Multiply x by instanceCount
+
+    # Multiply x by instanceCount = Similarity Score
     sscore = x * instanceCount
+
+    # Append to the final list
     finalList.append(sscore)
     print(f"Sim Score: {sscore}")
 
+# Show sum of the finalList
 print("Sum of list:")
 print(sum(finalList))
