@@ -86,33 +86,59 @@ def part2():
         if correct == True:
             continue
         else:
-            print(f"Adding {update} to incorrectUpdates")
-            incorrectUpdates.append(pages)
+            # Go through each number
+            correct = False
+            i1 = 0
+            i2 = 1
 
-    # Sort and correct
-    for update in incorrectUpdates:
-        # Go through each number
-        correct = False
-        i1 = 0
-        i2 = 1
+            while not correct:
+                while i2 < len(update):
+                    rule = f"{update[i1]}|{update[i2]}"
+                    if rule in pors:
+                        print(f"{rule} has been found in PORS")
+                    else:
+                        print(
+                            f"{rule} is not in PORS; swapping {update[i2]} with {update[i1]}"
+                        )
+                        update[i1], update[i2] = update[i2], update[i1]
+                        print(update)
+                        time.sleep(2)
+                        break
+                    i1 += 1
+                    i2 += 1
+                index += 1
 
-        while not correct:
-            while i2 < len(update):
-                rule = f"{update[i1]}|{update[i2]}"
-                if rule in pors:
-                    print(f"{rule} has been found in PORS")
-                else:
-                    print(
-                        f"{rule} is not in PORS; swapping {update[i2]} with {update[i1]}"
-                    )
-                    update[i1], update[i2] = update[i2], update[i1]
-                    print(update)
-                    time.sleep(2)
-                    break
-                i1 += 1
-                i2 += 1
-            index += 1
+def part3():
+    # Separate Rules from Updates
+    pors = [i.rstrip() for i in input_data if "|" in i]
+    updates = [i.rstrip() for i in input_data if "," in i]
+
+    for update in updates:
+        print(update)
+        updateSplit = update.split(",")
+        print(updateSplit)
+
+        # Print pairs
+        pairs = [updateSplit[i:i+2] for i in range(0, len(updateSplit), 1)]
+        pairs.remove(pairs[-1])
+        print(pairs)
+
+        for pair in pairs:
+            if f"{pair[0]}|{pair[1]}" not in pors:
+                print(f"{pair[0]}|{pair[1]}")
+                
+
+        # for page in updateSplit:
+            # if page != updateSplit[-1]:
+                # pair = f"{page}|{updateSplit[updateSplit.index(page) + 1]}"
+                # if pair in pors:
+                #     print(f"Found {pair} in PORS")
+                # else:
+                #     print(f"{pair} NOT found in PORS")
+                #     updateSplit[updateSplit.index[page]], updateSplit[updateSplit.index(page) + 1] = updateSplit[updateSplit.index(page) + 1], updateSplit[updateSplit.index[page]]
+                #     print(f"UPDATE: {updateSplit}")
 
 
 # part1()
-part2()
+# part2()
+part3()
